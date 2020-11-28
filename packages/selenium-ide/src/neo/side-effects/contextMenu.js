@@ -297,6 +297,19 @@ function createContextMenus() {
     contexts: ['all'],
     parentId: 'waitFor',
   })
+  browser.contextMenus.create({
+    id: 'percy',
+    title: 'Percy',
+    documentUrlPatterns: ['<all_urls>'],
+    contexts: ['all'],
+  })
+  browser.contextMenus.create({
+    id: 'percySnapshot',
+    title: 'Snapshot',
+    documentUrlPatterns: ['<all_urls>'],
+    contexts: ['all'],
+    parentId: 'percy',
+  })
 }
 
 function destroyContextMenus() {

@@ -21,8 +21,8 @@ export const Commands = [
     'answerOnNextPrompt',
     {
       name: 'answer on next prompt',
-      description: `Affects the next alert prompt. This command will send the 
-        specified answer string to it. If the alert is already present, then use 
+      description: `Affects the next alert prompt. This command will send the
+        specified answer string to it. If the alert is already present, then use
         "webdriver answer on visible prompt" instead.`,
       target: ArgTypes.answer,
     },
@@ -31,7 +31,7 @@ export const Commands = [
     'assert',
     {
       name: 'assert',
-      description: `Check that a variable is an expected value. The variable's 
+      description: `Check that a variable is an expected value. The variable's
         value will be converted to a string for comparison. The test will stop if the assert fails.`,
       target: ArgTypes.variableName,
       value: ArgTypes.expectedValue,
@@ -117,7 +117,7 @@ export const Commands = [
     {
       name: 'assert not selected value',
       type: TargetTypes.LOCATOR,
-      description: `Confirm that the value attribute of the selected option 
+      description: `Confirm that the value attribute of the selected option
         in a dropdown element does not contain the provided value. The test will stop if the assert fails.`,
       target: ArgTypes.selectLocator,
       value: ArgTypes.pattern,
@@ -148,7 +148,7 @@ export const Commands = [
     {
       name: 'assert selected value',
       type: TargetTypes.LOCATOR,
-      description: `Confirm that the value attribute of the selected option 
+      description: `Confirm that the value attribute of the selected option
         in a dropdown element contains the provided value. The test will stop if the assert fails.`,
       target: ArgTypes.selectLocator,
       value: ArgTypes.pattern,
@@ -159,7 +159,7 @@ export const Commands = [
     {
       name: 'assert selected label',
       type: TargetTypes.LOCATOR,
-      description: `Confirm that the label of the selected option in a dropdown 
+      description: `Confirm that the label of the selected option in a dropdown
         element contains the provided value. The test will stop if the assert fails.`,
       target: ArgTypes.selectLocator,
       value: ArgTypes.pattern,
@@ -190,9 +190,9 @@ export const Commands = [
     {
       name: 'assert value',
       type: TargetTypes.LOCATOR,
-      description: `Confirm the (whitespace-trimmed) value of an input field 
-        (or anything else with a value parameter). For checkbox/radio elements, 
-        the value will be "on" or "off" depending on whether the element is 
+      description: `Confirm the (whitespace-trimmed) value of an input field
+        (or anything else with a value parameter). For checkbox/radio elements,
+        the value will be "on" or "off" depending on whether the element is
         checked or not. The test will stop if the assert fails.`,
       target: ArgTypes.locator,
       value: ArgTypes.pattern,
@@ -211,8 +211,8 @@ export const Commands = [
     'chooseCancelOnNextConfirmation',
     {
       name: 'choose cancel on next confirmation',
-      description: `Affects the next confirmation alert. This command will 
-        cancel it. If the alert is already present, then use "webdriver choose 
+      description: `Affects the next confirmation alert. This command will
+        cancel it. If the alert is already present, then use "webdriver choose
         cancel on visible confirmation" instead.`,
     },
   ],
@@ -220,8 +220,8 @@ export const Commands = [
     'chooseCancelOnNextPrompt',
     {
       name: 'choose cancel on next prompt',
-      description: `Affects the next alert prompt. This command will cancel 
-        it. If the alert is already present, then use "webdriver choose cancel 
+      description: `Affects the next alert prompt. This command will cancel
+        it. If the alert is already present, then use "webdriver choose cancel
         on visible prompt" instead.`,
     },
   ],
@@ -229,8 +229,8 @@ export const Commands = [
     'chooseOkOnNextConfirmation',
     {
       name: 'choose ok on next confirmation',
-      description: `Affects the next confirmation alert. This command will 
-        accept it. If the alert is already present, then use "webdriver choose 
+      description: `Affects the next confirmation alert. This command will
+        accept it. If the alert is already present, then use "webdriver choose
         ok on visible confirmation" instead.`,
     },
   ],
@@ -248,9 +248,9 @@ export const Commands = [
     {
       name: 'click at',
       type: TargetTypes.LOCATOR,
-      description: `Clicks on a target element (e.g., a link, button, checkbox, 
-        or radio button). The coordinates are relative to the target element 
-        (e.g., 0,0 is the top left corner of the element) and are mostly used 
+      description: `Clicks on a target element (e.g., a link, button, checkbox,
+        or radio button). The coordinates are relative to the target element
+        (e.g., 0,0 is the top left corner of the element) and are mostly used
         to check effects that relay on them, for example the material ripple effect.`,
       target: ArgTypes.locator,
       value: ArgTypes.coord,
@@ -260,8 +260,8 @@ export const Commands = [
     'close',
     {
       name: 'close',
-      description: `Closes the current window. There is no need to close the 
-        initial window, IDE will re-use it; closing it may cause a performance 
+      description: `Closes the current window. There is no need to close the
+        initial window, IDE will re-use it; closing it may cause a performance
         penalty on the test.`,
     },
   ],
@@ -276,7 +276,7 @@ export const Commands = [
     'do',
     {
       name: 'do',
-      description: `Create a loop that executes the proceeding commands at 
+      description: `Create a loop that executes the proceeding commands at
         least once. Terminate the branch with the repeat if command.`,
     },
   ],
@@ -294,10 +294,10 @@ export const Commands = [
     {
       name: 'double click at',
       type: TargetTypes.LOCATOR,
-      description: `Double clicks on a target element (e.g., a link, button, 
-        checkbox, or radio button). The coordinates are relative to the target 
-        element (e.g., 0,0 is the top left corner of the element) and are mostly 
-        used to check effects that relay on them, for example the material 
+      description: `Double clicks on a target element (e.g., a link, button,
+        checkbox, or radio button). The coordinates are relative to the target
+        element (e.g., 0,0 is the top left corner of the element) and are mostly
+        used to check effects that relay on them, for example the material
         ripple effect.`,
       target: ArgTypes.locator,
       value: ArgTypes.coord,
@@ -317,7 +317,7 @@ export const Commands = [
     'echo',
     {
       name: 'echo',
-      description: `Prints the specified message into the third table cell in 
+      description: `Prints the specified message into the third table cell in
         your Selenese tables. Useful for debugging.`,
       target: ArgTypes.message,
     },
@@ -336,8 +336,8 @@ export const Commands = [
     'else',
     {
       name: 'else',
-      description: `Part of an if block. Execute the commands in this branch 
-        when an if and/or else if condition are not met. Terminate the branch 
+      description: `Part of an if block. Execute the commands in this branch
+        when an if and/or else if condition are not met. Terminate the branch
         with the end command.`,
     },
   ],
@@ -345,8 +345,8 @@ export const Commands = [
     'elseIf',
     {
       name: 'else if',
-      description: `Part of an if block. Execute the commands in this branch 
-        when an if condition has not been met. Terminate the branch with the 
+      description: `Part of an if block. Execute the commands in this branch
+        when an if condition has not been met. Terminate the branch with the
         end command.`,
       target: ArgTypes.conditionalExpression,
     },
@@ -362,9 +362,9 @@ export const Commands = [
     'executeScript',
     {
       name: 'execute script',
-      description: `Executes a snippet of JavaScript in the context of the 
-        currently selected frame or window. The script fragment will be executed 
-        as the body of an anonymous function.  To store the return value, use 
+      description: `Executes a snippet of JavaScript in the context of the
+        currently selected frame or window. The script fragment will be executed
+        as the body of an anonymous function.  To store the return value, use
         the 'return' keyword and provide a variable name in the value input field.`,
       target: ArgTypes.script,
       value: { isOptional: true, ...ArgTypes.variableName },
@@ -374,10 +374,10 @@ export const Commands = [
     'executeAsyncScript',
     {
       name: 'execute async script',
-      description: `Executes an async snippet of JavaScript in the context of 
-        the currently selected frame or window. The script fragment will be 
-        executed as the body of an anonymous function and must return a Promise. 
-        The Promise result will be saved on the variable if you use the 'return' 
+      description: `Executes an async snippet of JavaScript in the context of
+        the currently selected frame or window. The script fragment will be
+        executed as the body of an anonymous function and must return a Promise.
+        The Promise result will be saved on the variable if you use the 'return'
         keyword.`,
       target: ArgTypes.script,
       value: { isOptional: true, ...ArgTypes.variableName },
@@ -406,7 +406,7 @@ export const Commands = [
     {
       name: 'mouse down',
       type: TargetTypes.LOCATOR,
-      description: `Simulates a user pressing the left mouse button (without 
+      description: `Simulates a user pressing the left mouse button (without
         releasing it yet).`,
       target: ArgTypes.locator,
     },
@@ -416,7 +416,7 @@ export const Commands = [
     {
       name: 'mouse down at',
       type: TargetTypes.LOCATOR,
-      description: `Simulates a user pressing the left mouse button (without 
+      description: `Simulates a user pressing the left mouse button (without
         releasing it yet) at the specified location.`,
       target: ArgTypes.locator,
       value: ArgTypes.coord,
@@ -427,7 +427,7 @@ export const Commands = [
     {
       name: 'mouse move at',
       type: TargetTypes.LOCATOR,
-      description: `Simulates a user pressing the mouse button (without releasing 
+      description: `Simulates a user pressing the mouse button (without releasing
         it yet) on the specified element.`,
       target: ArgTypes.locator,
       value: ArgTypes.coord,
@@ -456,7 +456,7 @@ export const Commands = [
     {
       name: 'mouse up',
       type: TargetTypes.LOCATOR,
-      description: `Simulates the event that occurs when the user releases the 
+      description: `Simulates the event that occurs when the user releases the
         mouse button (e.g., stops holding the button down).`,
       target: ArgTypes.locator,
     },
@@ -466,7 +466,7 @@ export const Commands = [
     {
       name: 'mouse up at',
       type: TargetTypes.LOCATOR,
-      description: `Simulates the event that occurs when the user releases the 
+      description: `Simulates the event that occurs when the user releases the
         mouse button (e.g., stops holding the button down) at the specified location.`,
       target: ArgTypes.locator,
       value: ArgTypes.coord,
@@ -476,7 +476,7 @@ export const Commands = [
     'open',
     {
       name: 'open',
-      description: `Opens a URL and waits for the page to load before proceeding. 
+      description: `Opens a URL and waits for the page to load before proceeding.
         This accepts both relative and absolute URLs.`,
       target: ArgTypes.url,
     },
@@ -494,7 +494,7 @@ export const Commands = [
     {
       name: 'remove selection',
       type: TargetTypes.LOCATOR,
-      description: `Remove a selection from the set of selected options in a 
+      description: `Remove a selection from the set of selected options in a
         multi-select element using an option locator.`,
       target: ArgTypes.locator,
       value: ArgTypes.optionLocator,
@@ -504,8 +504,8 @@ export const Commands = [
     'repeatIf',
     {
       name: 'repeat if',
-      description: `Terminate a 'do' control flow branch conditionally. If 
-        the result of the provided conditional expression is true, it starts 
+      description: `Terminate a 'do' control flow branch conditionally. If
+        the result of the provided conditional expression is true, it starts
         the do loop over.  Otherwise it ends the loop.`,
       target: ArgTypes.conditionalExpression,
     },
@@ -522,10 +522,10 @@ export const Commands = [
     'runScript',
     {
       name: 'run script',
-      description: `Creates a new "script" tag in the body of the current 
-        test window, and adds the specified text into the body of the command. 
-        Beware that JS exceptions thrown in these script tags aren't managed 
-        by Selenium, so you should probably wrap your script in try/catch blocks 
+      description: `Creates a new "script" tag in the body of the current
+        test window, and adds the specified text into the body of the command.
+        Beware that JS exceptions thrown in these script tags aren't managed
+        by Selenium, so you should probably wrap your script in try/catch blocks
         if there is any chance that the script will throw an exception.`,
       target: ArgTypes.script,
     },
@@ -535,9 +535,9 @@ export const Commands = [
     {
       name: 'select',
       type: TargetTypes.LOCATOR,
-      description: `Select an element from a drop-down menu using an option 
-        locator. Option locators provide different ways of specifying a select 
-        element (e.g., label=, value=, id=, index=). If no option locator prefix 
+      description: `Select an element from a drop-down menu using an option
+        locator. Option locators provide different ways of specifying a select
+        element (e.g., label=, value=, id=, index=). If no option locator prefix
         is provided, a match on the label will be attempted.`,
       target: ArgTypes.selectLocator,
       value: ArgTypes.optionLocator,
@@ -549,11 +549,11 @@ export const Commands = [
       name: 'select frame',
       type: TargetTypes.LOCATOR,
       description: `Selects a frame within the current window. You can select a
-        frame by its 0-based index number (e.g., select the first frame with 
+        frame by its 0-based index number (e.g., select the first frame with
         "index=0", or the third frame with "index=2"). For nested frames you will
-        need to invoke this command multiple times (once for each frame in the 
-        tree until you reach your desired frame). You can select the parent 
-        frame with "relative=parent". To return to the top of the page use 
+        need to invoke this command multiple times (once for each frame in the
+        tree until you reach your desired frame). You can select the parent
+        frame with "relative=parent". To return to the top of the page use
         "relative=top".`,
       target: ArgTypes.locator,
     },
@@ -562,8 +562,8 @@ export const Commands = [
     'selectWindow',
     {
       name: 'select window',
-      description: `Selects a popup window using a window locator. Once a 
-        popup window has been selected, all commands will go to that window. 
+      description: `Selects a popup window using a window locator. Once a
+        popup window has been selected, all commands will go to that window.
         Window locators use handles to select windows.`,
       target: ArgTypes.handle,
     },
@@ -573,13 +573,13 @@ export const Commands = [
     {
       name: 'send keys',
       type: TargetTypes.LOCATOR,
-      description: `Simulates keystroke events on the specified element, as 
-        though you typed the value key-by-key. This simulates a real user typing 
-        every character in the specified string; it is also bound by the 
-        limitations of a real user, like not being able to type into a invisible 
-        or read only elements.  This is useful for dynamic UI widgets (like 
-        auto-completing combo boxes) that require explicit key events. Unlike 
-        the simple "type" command, which forces the specified value into the 
+      description: `Simulates keystroke events on the specified element, as
+        though you typed the value key-by-key. This simulates a real user typing
+        every character in the specified string; it is also bound by the
+        limitations of a real user, like not being able to type into a invisible
+        or read only elements.  This is useful for dynamic UI widgets (like
+        auto-completing combo boxes) that require explicit key events. Unlike
+        the simple "type" command, which forces the specified value into the
         page directly, this command will not replace the existing content.`,
       target: ArgTypes.locator,
       value: ArgTypes.keySequence,
@@ -589,9 +589,9 @@ export const Commands = [
     'setSpeed',
     {
       name: 'set speed',
-      description: `Set execution speed (e.g., set the millisecond length of 
-        a delay which will follow each Selenium operation). By default, there 
-        is no such delay, e.g., the delay is 0 milliseconds. This setting is 
+      description: `Set execution speed (e.g., set the millisecond length of
+        a delay which will follow each Selenium operation). By default, there
+        is no such delay, e.g., the delay is 0 milliseconds. This setting is
         global, and will affect all test runs, until changed.`,
       target: ArgTypes.waitTime,
     },
@@ -618,8 +618,8 @@ export const Commands = [
     'storeAttribute',
     {
       name: 'store attribute',
-      description: `Gets the value of an element attribute. The value of the 
-        attribute may differ across browsers (this is the case for the "style" 
+      description: `Gets the value of an element attribute. The value of the
+        attribute may differ across browsers (this is the case for the "style"
         attribute, for example).`,
       target: ArgTypes.attributeLocator,
       value: ArgTypes.variableName,
@@ -639,7 +639,7 @@ export const Commands = [
     {
       name: 'store text',
       type: TargetTypes.LOCATOR,
-      description: `Gets the text of an element and stores it for later use. 
+      description: `Gets the text of an element and stores it for later use.
         This works for any element that contains text.`,
       target: ArgTypes.locator,
       value: ArgTypes.variableName,
@@ -659,7 +659,7 @@ export const Commands = [
     {
       name: 'store value',
       type: TargetTypes.LOCATOR,
-      description: `Gets the value of element and stores it for later use. 
+      description: `Gets the value of element and stores it for later use.
         This works for any input type element.`,
       target: ArgTypes.locator,
       value: ArgTypes.variableName,
@@ -677,7 +677,7 @@ export const Commands = [
     'storeXpathCount',
     {
       name: 'store xpath count',
-      description: `Gets the number of nodes that match the specified xpath 
+      description: `Gets the number of nodes that match the specified xpath
         (e.g. "//table" would give the number of tables).`,
       target: ArgTypes.xpath,
       value: ArgTypes.variableName,
@@ -688,7 +688,7 @@ export const Commands = [
     {
       name: 'submit',
       type: TargetTypes.LOCATOR,
-      description: `Submit the specified form. This is particularly useful for 
+      description: `Submit the specified form. This is particularly useful for
         forms without submit buttons, e.g. single-input "Search" forms.`,
       target: ArgTypes.formLocator,
     },
@@ -707,11 +707,11 @@ export const Commands = [
     {
       name: 'type',
       type: TargetTypes.LOCATOR,
-      description: `Sets the value of an input field, as though you typed it 
-        in. Can also be used to set the value of combo boxes, check boxes, etc. 
-        In these cases, value should be the value of the option selected, not 
-        the visible text.  Chrome only: If a file path is given it will be 
-        uploaded to the input (for type=file), NOTE: XPath locators are not 
+      description: `Sets the value of an input field, as though you typed it
+        in. Can also be used to set the value of combo boxes, check boxes, etc.
+        In these cases, value should be the value of the option selected, not
+        the visible text.  Chrome only: If a file path is given it will be
+        uploaded to the input (for type=file), NOTE: XPath locators are not
         supported.`,
       target: ArgTypes.locator,
       value: ArgTypes.value,
@@ -730,7 +730,7 @@ export const Commands = [
     'verify',
     {
       name: 'verify',
-      description: `Soft assert that a variable is an expected value. The 
+      description: `Soft assert that a variable is an expected value. The
         variable's value will be converted to a string for comparison.
         The test will continue even if the verify fails.`,
       target: ArgTypes.variableName,
@@ -752,7 +752,7 @@ export const Commands = [
     {
       name: 'verify editable',
       type: TargetTypes.LOCATOR,
-      description: `Soft assert whether the specified input element is 
+      description: `Soft assert whether the specified input element is
         editable (e.g., hasn't been disabled). The test will continue even if the verify fails.`,
       target: ArgTypes.locator,
     },
@@ -792,7 +792,7 @@ export const Commands = [
     {
       name: 'verify not editable',
       type: TargetTypes.LOCATOR,
-      description: `Soft assert whether the specified input element is not 
+      description: `Soft assert whether the specified input element is not
         editable (e.g., hasn't been disabled). The test will continue even if the verify fails.`,
       target: ArgTypes.locator,
     },
@@ -801,7 +801,7 @@ export const Commands = [
     'verifyNotSelectedValue',
     {
       name: 'verify not selected value',
-      description: `Soft assert that the expected element has not been chosen 
+      description: `Soft assert that the expected element has not been chosen
         in a select menu by its option attribute. The test will continue even if the verify fails.`,
       target: ArgTypes.selectLocator,
       value: ArgTypes.optionLocator,
@@ -823,7 +823,7 @@ export const Commands = [
     {
       name: 'verify selected label',
       type: TargetTypes.LOCATOR,
-      description: `Soft assert the visible text for a selected option in the 
+      description: `Soft assert the visible text for a selected option in the
         specified select element. The test will continue even if the verify fails.`,
       target: ArgTypes.selectLocator,
       value: ArgTypes.pattern,
@@ -834,7 +834,7 @@ export const Commands = [
     {
       name: 'verify selected value',
       type: TargetTypes.LOCATOR,
-      description: `Soft assert that the expected element has been chosen in 
+      description: `Soft assert that the expected element has been chosen in
         a select menu by its option attribute. The test will continue even if the verify fails.`,
       target: ArgTypes.selectLocator,
       value: ArgTypes.optionLocator,
@@ -865,9 +865,9 @@ export const Commands = [
     {
       name: 'verify value',
       type: TargetTypes.LOCATOR,
-      description: `Soft assert the (whitespace-trimmed) value of an input 
-        field (or anything else with a value parameter). For checkbox/radio 
-        elements, the value will be "on" or "off" depending on whether the 
+      description: `Soft assert the (whitespace-trimmed) value of an input
+        field (or anything else with a value parameter). For checkbox/radio
+        elements, the value will be "on" or "off" depending on whether the
         element is checked or not. The test will continue even if the verify fails.`,
       target: ArgTypes.locator,
       value: ArgTypes.pattern,
@@ -947,8 +947,8 @@ export const Commands = [
     'webdriverAnswerOnVisiblePrompt',
     {
       name: 'webdriver answer on visible prompt',
-      description: `Affects a currently showing alert prompt. This command 
-        instructs Selenium to provide the specified answer to it. If the alert 
+      description: `Affects a currently showing alert prompt. This command
+        instructs Selenium to provide the specified answer to it. If the alert
         has not appeared yet then use "answer on next prompt" instead.`,
       target: ArgTypes.answer,
     },
@@ -957,8 +957,8 @@ export const Commands = [
     'webdriverChooseCancelOnVisibleConfirmation',
     {
       name: 'webdriver choose cancel on visible confirmation',
-      description: `Affects a currently showing confirmation alert. This 
-        command instructs Selenium to cancel it. If the alert has not appeared 
+      description: `Affects a currently showing confirmation alert. This
+        command instructs Selenium to cancel it. If the alert has not appeared
         yet then use "choose cancel on next confirmation" instead.`,
     },
   ],
@@ -966,8 +966,8 @@ export const Commands = [
     'webdriverChooseCancelOnVisiblePrompt',
     {
       name: 'webdriver choose cancel on visible prompt',
-      description: `Affects a currently showing alert prompt. This command 
-        instructs Selenium to cancel it. If the alert has not appeared yet 
+      description: `Affects a currently showing alert prompt. This command
+        instructs Selenium to cancel it. If the alert has not appeared yet
         then use "choose cancel on next prompt" instead.`,
     },
   ],
@@ -975,8 +975,8 @@ export const Commands = [
     'webdriverChooseOkOnVisibleConfirmation',
     {
       name: 'webdriver choose ok on visible confirmation',
-      description: `Affects a currently showing confirmation alert. This 
-        command instructs Selenium to accept it. If the alert has not appeared 
+      description: `Affects a currently showing confirmation alert. This
+        command instructs Selenium to accept it. If the alert has not appeared
         yet then use "choose ok on next confirmation" instead.`,
     },
   ],
@@ -984,10 +984,17 @@ export const Commands = [
     'while',
     {
       name: 'while',
-      description: `Create a loop that executes the proceeding commands 
+      description: `Create a loop that executes the proceeding commands
         repeatedly for as long as the provided conditional expression is true.`,
       target: ArgTypes.conditionalExpression,
       value: { isOptional: true, ...ArgTypes.loopLimit },
+    },
+  ],
+  [
+    'percySnapshot',
+    {
+      name: 'percySnapshot',
+      description: `snapshot command from Percy`,
     },
   ],
 ]

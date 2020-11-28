@@ -1,7 +1,7 @@
 {
   "description": "Selenium Record and Playback tool for ease of getting acquainted with Selenium WebDriver.",
   "manifest_version": 2,
-  "name": "Selenium IDE",
+  "name": "Selenium IDE-Percy",
   "version": "3.17.0",
   "version_name": "3.17.0",
   "homepage_url": "https://github.com/SeleniumHQ/selenium-ide",
@@ -17,7 +17,7 @@
       "32": "icons/icon_menu32.png",
       "64": "icons/icon_menu64.png"
     },
-    "default_title": "Selenium IDE"
+    "default_title": "Selenium IDE-Percy"
   },
   "permissions": [
     "tabs",

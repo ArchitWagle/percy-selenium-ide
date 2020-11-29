@@ -110,6 +110,7 @@ function beforeEach() {
         },
         { level: 1, statement: 'js = (JavascriptExecutor) driver;' },
         { level: 1, statement: 'vars = new HashMap<String, Object>();' },
+        { level: 1, statement: 'percy = new Percy(driver);' },
       ],
     }),
     endingSyntax: {
@@ -171,6 +172,8 @@ function declareDependencies() {
         { level: 0, statement: 'import java.util.*;' },
         { level: 0, statement: 'import java.net.MalformedURLException;' },
         { level: 0, statement: 'import java.net.URL;' },
+
+        { level: 0, statement: 'import io.percy.selenium.Percy;' },
       ],
     },
   }
@@ -182,6 +185,7 @@ function declareVariables() {
     startingSyntax: {
       commands: [
         { level: 0, statement: 'private WebDriver driver;' },
+        { level: 0, statement: 'private Percy percy;' },
         {
           level: 0,
           statement: 'private Map<String, Object> vars;',

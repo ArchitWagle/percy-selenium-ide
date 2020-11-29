@@ -884,7 +884,7 @@ Selenium.prototype.doDoubleClick = function(locator) {
   bot.action.doubleClick(element)
 }
 
-Selenium.prototype.doPercySnapshot = function(locator,widths) {
+Selenium.prototype.doPercySnapshot = function(locator,title) {
   /*
    * Double clicks on a link, button, checkbox or radio button. If the double click action
    * causes a new page to load (like a link usually does), call

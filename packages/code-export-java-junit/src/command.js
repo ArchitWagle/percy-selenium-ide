@@ -70,6 +70,7 @@ export const emitters = {
   mouseUpAt: emitMouseUp,
   open: emitOpen,
   pause: emitPause,
+  percySnapshot: emitPercySnapshot,
   removeSelection: emitSelect,
   repeatIf: emitControlFlowRepeatIf,
   run: emitRun,
@@ -500,6 +501,13 @@ async function emitPause(time) {
     { level: 0, statement: '} catch (InterruptedException e) {' },
     { level: 1, statement: 'e.printStackTrace();' },
     { level: 0, statement: '}' },
+  ]
+  return Promise.resolve({ commands })
+}
+
+async function emitPercySnapshot(locator, title) {
+  const commands = [
+    { level: 0, statement: `percy.snapshot("${title}");` },
   ]
   return Promise.resolve({ commands })
 }

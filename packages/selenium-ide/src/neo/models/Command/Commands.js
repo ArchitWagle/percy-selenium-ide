@@ -489,6 +489,26 @@ export const Commands = [
       target: ArgTypes.waitTime,
     },
   ],
+  //[
+  //  'percySnapshot',
+  //  {
+  //    name: 'percySnapshot',
+  //    type: TargetTypes.LOCATOR,
+  //    description: `snapshot command from Percy`,
+  //    target: ArgTypes.locator,
+  //  },
+  //],
+
+  [
+    'percySnapshot',
+    {
+      name: 'percySnapshot',
+      type: TargetTypes.LOCATOR,
+      description: `snapshot command from Percy`,
+      target: ArgTypes.locator,
+      value: ArgTypes.text,
+    },
+  ],
   [
     'removeSelection',
     {
@@ -988,13 +1008,6 @@ export const Commands = [
         repeatedly for as long as the provided conditional expression is true.`,
       target: ArgTypes.conditionalExpression,
       value: { isOptional: true, ...ArgTypes.loopLimit },
-    },
-  ],
-  [
-    'percySnapshot',
-    {
-      name: 'percySnapshot',
-      description: `snapshot command from Percy`,
     },
   ],
 ]

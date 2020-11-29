@@ -416,7 +416,11 @@ export default class WebDriverExecutor {
   async doPause(time) {
     await this.driver.sleep(time)
   }
+/*
+  async doPercySnapshot() {
 
+  }
+*/
   async evaluateConditional(script) {
     try {
       const result = await this.driver.executeScript(

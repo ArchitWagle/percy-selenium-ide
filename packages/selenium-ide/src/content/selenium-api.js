@@ -884,6 +884,20 @@ Selenium.prototype.doDoubleClick = function(locator) {
   bot.action.doubleClick(element)
 }
 
+Selenium.prototype.doPercySnapshot = function(locator,widths) {
+  /*
+   * Double clicks on a link, button, checkbox or radio button. If the double click action
+   * causes a new page to load (like a link usually does), call
+   * waitForPageToLoad.
+   *
+   * @param locator an element locator
+   *
+   */
+
+   // IMPO PERCY FUNC
+
+}
+
 Selenium.prototype.doContextMenu = function(locator) {
   /**
    * Simulates opening the context menu for the specified element (as might happen if the user "right-clicked" on the element).

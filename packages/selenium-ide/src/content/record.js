@@ -666,11 +666,14 @@ Recorder.addEventHandler(
       } else if (m.cmd.includes('Value')) {
         let tmpValue = event.target.value
         record(m.cmd, tmpTarget, tmpValue)
-      } else if (m.cmd.includes('Snapshot')) {
+      }
+      // percy code
+      else if (m.cmd.includes('Snapshot')) {
         let tmpTitle = goog.string.normalizeSpaces(
           event.target.ownerDocument.title
         )
-        record(m.cmd, [[tmpTitle]], '')
+        //record(m.cmd, tmpTarget, '')
+        record(m.cmd, tmpTarget, tmpTitle)
       }
       myPort.onMessage.removeListener(this)
     })

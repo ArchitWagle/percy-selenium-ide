@@ -37,6 +37,7 @@ const emitters = {
   executeScript: emitExecuteScript,
   executeAsyncScript: emitExecuteAsyncScript,
   pause: emitPause,
+  //percySnapshot: emitPercySnapshot,
   verifyChecked: emitVerifyChecked,
   verifyNotChecked: emitVerifyNotChecked,
   verifyEditable: emitVerifyEditable,
@@ -413,7 +414,11 @@ emitExecuteAsyncScript.target = scriptPreprocessor
 async function emitPause(time) {
   return Promise.resolve(`await driver.sleep(${time});`)
 }
-
+/*
+async function emitPercySnapshot() {
+  return Promise.resolve(`;`)
+}
+*/
 async function emitVerifyChecked(locator) {
   return Promise.resolve(
     `await driver.wait(until.elementLocated(${await LocationEmitter.emit(

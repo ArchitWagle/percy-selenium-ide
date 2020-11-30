@@ -111,6 +111,7 @@ function beforeEach() {
         { level: 1, statement: 'js = (JavascriptExecutor) driver;' },
         { level: 1, statement: 'vars = new HashMap<String, Object>();' },
         { level: 1, statement: 'percy = new Percy(driver);' },
+        { level: 1, statement: 'percy_css_string = "";' },
       ],
     }),
     endingSyntax: {
@@ -186,6 +187,7 @@ function declareVariables() {
       commands: [
         { level: 0, statement: 'private WebDriver driver;' },
         { level: 0, statement: 'private Percy percy;' },
+        { level: 0, statement: 'private String percy_css_string;' },
         {
           level: 0,
           statement: 'private Map<String, Object> vars;',

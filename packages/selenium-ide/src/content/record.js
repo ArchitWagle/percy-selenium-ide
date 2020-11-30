@@ -15,7 +15,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import browser from 'webextension-polyfill'
 import goog, { bot } from './closure-polyfill'
 import { Recorder, recorder, record } from './record-api'
@@ -674,6 +673,13 @@ Recorder.addEventHandler(
         )
         //record(m.cmd, tmpTarget, '')
         record(m.cmd, tmpTarget, tmpTitle)
+      }
+      else if (m.cmd.includes('CSS')) {
+        let tmpTitle = goog.string.normalizeSpaces(
+          event.target.ownerDocument.title
+        )
+
+        record(m.cmd, tmpTarget, '')
       }
       myPort.onMessage.removeListener(this)
     })

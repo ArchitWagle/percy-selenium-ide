@@ -510,6 +510,15 @@ export const Commands = [
     },
   ],
   [
+    'percyCSS',
+    {
+      name: 'percyCSS',
+      type: TargetTypes.LOCATOR,
+      description: `snapshot command from Percy`,
+      target: ArgTypes.locator,
+    },
+  ],
+  [
     'removeSelection',
     {
       name: 'remove selection',

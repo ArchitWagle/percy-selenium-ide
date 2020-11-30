@@ -310,6 +310,13 @@ function createContextMenus() {
     contexts: ['all'],
     parentId: 'percy',
   })
+  browser.contextMenus.create({
+    id: 'percyCSS',
+    title: 'percy css',
+    documentUrlPatterns: ['<all_urls>'],
+    contexts: ['all'],
+    parentId: 'percy',
+  })
 }
 
 function destroyContextMenus() {

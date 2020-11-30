@@ -17,7 +17,8 @@
 
 import browser from 'webextension-polyfill'
 import { calculateFrameIndex } from './utils'
-
+import TargetSelector from './targetSelector'
+let targetSelector
 let contentSideexTabId = -1
 let frameLocation = ''
 let recordingIndicator
@@ -313,6 +314,7 @@ window.contentSideexTabId = contentSideexTabId
 window.Recorder = Recorder
 
 /* record */
+window.insidePercyCSS = false
 export function record(
   command,
   target,
@@ -320,6 +322,39 @@ export function record(
   insertBeforeLastCommand,
   actualFrameLocation
 ) {
+
+    if (command=="percyCSS") {
+      window.insidePercyCSS= true;
+      targetSelector = new TargetSelector(
+        function(element, win) {
+          if (element && win) {
+            const target = locatorBuilders.buildAll(element)
+            locatorBuilders.detach()
+            if (target != null && target instanceof Array) {
+              if (target) {
+                browser.runtime.sendMessage({
+                  command: command,
+                  target: target,
+                  value: value,
+                  insertBeforeLastCommand: insertBeforeLastCommand,
+                  frameLocation:
+                    actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
+                  commandSideexTabId: contentSideexTabId,
+                })
+              }
+
+            }
+          }
+          window.insidePercyCSS= false
+          targetSelector = null
+        },
+        function() {
+          browser.runtime.sendMessage({
+            cancelSelectTarget: true,
+          })
+        }
+      )
+    } else if (!window.insidePercyCSS){
   browser.runtime
     .sendMessage({
       command: command,
@@ -333,6 +368,7 @@ export function record(
     .catch(() => {
       recorder.detach()
     })
+  }
 }
 
 window.record = record

@@ -71,6 +71,7 @@ export const emitters = {
   open: emitOpen,
   pause: emitPause,
   percySnapshot: emitPercySnapshot,
+  percyCSS: emitPercyCSS,
   removeSelection: emitSelect,
   repeatIf: emitControlFlowRepeatIf,
   run: emitRun,
@@ -505,9 +506,19 @@ async function emitPause(time) {
   return Promise.resolve({ commands })
 }
 
+
 async function emitPercySnapshot(locator, title) {
   const commands = [
-    { level: 0, statement: `percy.snapshot("${title}");` },
+    { level: 0, statement: `percy.snapshot("${title}",null,null,false, percy_css_string);` },
+    { level: 0, statement: `percy_css_string = "";` },
+  ]
+  return Promise.resolve({ commands })
+}
+
+async function emitPercyCSS(locator) {
+  const commands = [
+    { level: 0, statement: `percy_css_string += "${locator}".substring(4);` },
+    { level: 0, statement: `percy_css_string += "{ background-color: white; }";` },
   ]
   return Promise.resolve({ commands })
 }

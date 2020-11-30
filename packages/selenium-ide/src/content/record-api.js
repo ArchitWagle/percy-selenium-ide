@@ -18,6 +18,7 @@
 import browser from 'webextension-polyfill'
 import { calculateFrameIndex } from './utils'
 import TargetSelector from './targetSelector'
+import PercyHideSelector from './PercyHideSelector'
 let targetSelector
 let contentSideexTabId = -1
 let frameLocation = ''
@@ -354,21 +355,58 @@ export function record(
           })
         }
       )
-    } else if (!window.insidePercyCSS){
-  browser.runtime
-    .sendMessage({
-      command: command,
-      target: target,
-      value: value,
-      insertBeforeLastCommand: insertBeforeLastCommand,
-      frameLocation:
-        actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
-      commandSideexTabId: contentSideexTabId,
-    })
-    .catch(() => {
-      recorder.detach()
-    })
-  }
+    }
+    // for percy-hide
+    else if(command=="percyHide"){
+      window.insidePercyCSS= true;
+      targetSelector = new PercyHideSelector(
+        function(elements, win) {
+          for(let element of elements){
+            if (element && win) {
+              const target = locatorBuilders.buildAll(element)
+              locatorBuilders.detach()
+              if (target != null && target instanceof Array) {
+                if (target) {
+                  browser.runtime.sendMessage({
+                    command: `percyCSS`,
+                    target: target,
+                    value: value,
+                    insertBeforeLastCommand: insertBeforeLastCommand,
+                    frameLocation:
+                      actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
+                    commandSideexTabId: contentSideexTabId,
+                  })
+                }
+
+              }
+            }
+          }
+          window.insidePercyCSS= false
+          targetSelector = null
+        },
+        function() {
+          browser.runtime.sendMessage({
+            cancelSelectTarget: true,
+          })
+        }
+      )
+    }
+    // for all other commands the original flow
+    else if (!window.insidePercyCSS){
+      browser.runtime
+        .sendMessage({
+          command: command,
+          target: target,
+          value: value,
+          insertBeforeLastCommand: insertBeforeLastCommand,
+          frameLocation:
+            actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
+          commandSideexTabId: contentSideexTabId,
+        })
+        .catch(() => {
+          recorder.detach()
+        })
+      }
 }
 
 window.record = record

@@ -317,6 +317,14 @@ function createContextMenus() {
     contexts: ['all'],
     parentId: 'percy',
   })
+  // percy hide is for the bounding box stuff I am trying 
+  browser.contextMenus.create({
+    id: 'percyHide',
+    title: 'percy hide',
+    documentUrlPatterns: ['<all_urls>'],
+    contexts: ['all'],
+    parentId: 'percy',
+  })
 }
 
 function destroyContextMenus() {

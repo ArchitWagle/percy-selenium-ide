@@ -671,16 +671,15 @@ Recorder.addEventHandler(
         let tmpTitle = goog.string.normalizeSpaces(
           event.target.ownerDocument.title
         )
-        //record(m.cmd, tmpTarget, '')
         record(m.cmd, tmpTarget, tmpTitle)
       }
       else if (m.cmd.includes('CSS')) {
-        let tmpTitle = goog.string.normalizeSpaces(
-          event.target.ownerDocument.title
-        )
-
         record(m.cmd, tmpTarget, '')
       }
+      else if (m.cmd.includes('percyHide')) {
+        record(m.cmd, tmpTarget, '')
+      }
+
       myPort.onMessage.removeListener(this)
     })
   },

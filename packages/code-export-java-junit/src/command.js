@@ -518,7 +518,7 @@ async function emitPercySnapshot(locator, title) {
 async function emitPercyCSS(locator) {
   const commands = [
     { level: 0, statement: `percy_css_string += "${locator}".substring(4);` },
-    { level: 0, statement: `percy_css_string += "{ background-color: white; }";` },
+    { level: 0, statement: `percy_css_string += "{ display: none; }";` },
   ]
   return Promise.resolve({ commands })
 }

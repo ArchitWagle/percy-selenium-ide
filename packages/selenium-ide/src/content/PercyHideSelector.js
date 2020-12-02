@@ -163,6 +163,17 @@ class PercyHideSelector {
   handleEvent(evt) {
     switch (evt.type) {
 
+      case 'mousemove':
+        if(this.selecting) {
+          this.boundaryRight = evt.clientX
+          this.boundaryBottom= evt.clientY
+          this.createCanvas()
+          this.drawRect()
+
+
+        }
+        break
+
       case 'click':
         if (this.selecting) {
           if (evt.button == 0 &&  this.callback) {

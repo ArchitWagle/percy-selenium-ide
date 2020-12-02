@@ -672,6 +672,9 @@ Recorder.addEventHandler(
           event.target.ownerDocument.title
         )
         record(m.cmd, tmpTarget, tmpTitle)
+        let audio = new Audio(browser.runtime.getURL('/icons/audio/percy-snapshot-shutter-sound.mp3'))
+        audio.play()
+
       }
       else if (m.cmd.includes('CSS')) {
         record(m.cmd, tmpTarget, '')

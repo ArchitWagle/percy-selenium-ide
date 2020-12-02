@@ -40,7 +40,7 @@ class PercyHideSelector {
     this.styleSheet = doc.createElement("style")
     this.showAllElements(doc)
 
-
+    this.createCanvas()
     this.banner = doc.createElement('div')
     this.banner.setAttribute(
       'style',
@@ -87,6 +87,7 @@ class PercyHideSelector {
   cleanup() {
     this.rect.remove()
     this.styleSheet.remove()
+    this.canvas.remove()
     try {
       if (this.div) {
         if (this.div.parentNode) {
@@ -116,6 +117,49 @@ class PercyHideSelector {
     }
   }
 
+  drawRect(){
+
+    const canvasrealleft = this.boundaryLeft-this.canvas.getBoundingClientRect().left
+    const canvasrealtop = this.boundaryTop-this.canvas.getBoundingClientRect().top
+    this.canvas.getContext('2d').rect(canvasrealleft, canvasrealtop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop)
+    console.log([canvasrealleft, canvasrealtop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop])
+    console.log([this.boundaryLeft, this.boundaryTop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop])
+    this.canvas.getContext('2d').globalAlpha = 0.4
+    this.canvas.getContext('2d').fillStyle = 'red'
+    this.canvas.getContext('2d').fill()
+    this.canvas.getContext('2d').globalAlpha = 1
+    this.canvas.getContext('2d').shadowBlur = 10;
+    this.canvas.getContext('2d').shadowColor = "red";
+
+    this.canvas.getContext('2d').strokeStyle = "black";
+
+    this.canvas.getContext('2d').strokeRect(canvasrealleft, canvasrealtop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop);
+  }
+
+  createCanvas(){
+    if(typeof this.canvas!='undefined')this.canvas.remove()
+    this.canvas = this.win.document.createElement('canvas')
+    //this.canvas.style.width='100%'
+    //this.canvas.style.height='100%'
+    //this.canvas.style.display = 'block'
+    this.canvas.width = window.innerWidth
+    var body = document.body,
+    html = document.documentElement;
+
+    let height = Math.max( document.body.scrollHeight, document.body.offsetHeight,
+                       document.documentElement.clientHeight, document.documentElement.scrollHeight,
+                       document.documentElement.offsetHeight )
+    this.canvas.height = height
+    //Position canvas
+    this.canvas.style.position='absolute'
+    this.canvas.style.left=0
+    this.canvas.style.top=0
+    this.canvas.style.zIndex=100000
+    this.canvas.style.pointerEvents='none'
+    this.win.document.body.appendChild(this.canvas)
+
+  }
+
   handleEvent(evt) {
     switch (evt.type) {
 
@@ -123,11 +167,12 @@ class PercyHideSelector {
         if (this.selecting) {
           if (evt.button == 0 &&  this.callback) {
             this.selecting = false
-            this.rect.style.right = evt.clientX
-            this.rect.style.bottom = evt.clientY
 
             this.boundaryRight = evt.clientX
             this.boundaryBottom= evt.clientY
+            console.log(['client',evt.clientX,evt.clientY])
+            this.drawRect()
+
             console.log("madhav")
           } //Right click would cancel the select
 
@@ -140,19 +185,12 @@ class PercyHideSelector {
           if (evt.button == 0 && this.callback) {
             this.selecting = true
             this.rect = this.win.document.createElement('div')
-            //this.rect.setAttribute(
-              'style',
-              "pointer-events: none;display: flex;align-items: center;justify-content: center;flex-direction: row;position: fixed;top: 20%;left: 50%;transform: translateX(-50%);background: #f7f7f7;color: #114990;font-size: 22px;font-weight: 200;z-index: 10001;font-family: system, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;box-shadow: 0 7px 10px 0 rgba(0,0,0,0.1);border: 1px black solid; border-radius: 50px;padding: 10px;"
-            //)
-            //this.rect.style.backgroundColor = "red"
-            //this.rect.style.opacity = 0.4
-            //this.rect.style.position = "absolute"
-            //this.rect.style.zIndex = 10000
-            this.rect.style.left = evt.clientX
-            this.rect.style.top = evt.clientY
 
+
+            this.createCanvas()
             this.boundaryLeft = evt.clientX
             this.boundaryTop = evt.clientY
+            console.log(['client',evt.clientX,evt.clientY])
             console.log("rohit")
             console.log(this.rect)
             evt.preventDefault()

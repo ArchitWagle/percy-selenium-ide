@@ -514,8 +514,18 @@ export const Commands = [
     {
       name: 'percyCSS',
       type: TargetTypes.LOCATOR,
-      description: `snapshot command from Percy`,
+      description: `Percy css command`,
       target: ArgTypes.locator,
+    },
+  ],
+  [
+    'percyHide',
+    {
+      name: 'percyHide',
+      type: TargetTypes.LOCATOR,
+      description: `Percy Hide command`,
+      target: ArgTypes.locator,
+      value: ArgTypes.text,
     },
   ],
   [

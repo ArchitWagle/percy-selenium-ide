@@ -222,15 +222,8 @@ class PercyHideSelector {
       case 'keydown':
         // IF shift key is pressed return
         if(evt.keyCode === 16 || evt.charCode === 16){
-          /*
-
-          console.log(elementsInBoundary)
-          this.callback(elementsInBoundary, this.win)
-          this.cleanup()
-          */
-
           this.dfs(this.win.document.body)
-          this.callback(elementsInBoundary, this.win)
+          this.callback(this.percy_css_string, this.win.document.body)
           this.cleanup()
 
         }
@@ -256,14 +249,11 @@ class PercyHideSelector {
   }
 
 
-
-
-
   dfs(elem){
     let stack = []
     stack.push(elem)
     let count =0
-    this.percy_css_string = ""
+    //this.percy_css_string = ""
     while(stack.length!=0){
       elem = stack.pop()
       let curr_elem = elem.getBoundingClientRect()
@@ -274,7 +264,7 @@ class PercyHideSelector {
         curr_elem.top> this.boundaryTop &&
         elem != this.banner ){
 
-          console.log("yessss "+elem.innerHTML)
+          //console.log("yessss "+elem.innerHTML)
           this.percy_css_string += finder(elem) + ","
           //elem.style.visibility='hidden'
         }

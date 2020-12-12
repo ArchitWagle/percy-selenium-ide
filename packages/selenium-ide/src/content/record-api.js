@@ -360,27 +360,19 @@ export function record(
     else if(command=="percyHide"){
       window.insidePercyCSS= true;
       targetSelector = new PercyHideSelector(
-        function(elements, win) {
-          for(let element of elements){
-            if (element && win) {
-              const target = locatorBuilders.buildAll(element)
-              locatorBuilders.detach()
-              if (target != null && target instanceof Array) {
-                if (target) {
-                  browser.runtime.sendMessage({
-                    command: `percyCSS`,
-                    target: target,
-                    value: value,
-                    insertBeforeLastCommand: insertBeforeLastCommand,
-                    frameLocation:
-                      actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
-                    commandSideexTabId: contentSideexTabId,
-                  })
-                }
-
-              }
-            }
-          }
+        function(percy_css_string, elem) {
+          let target = locatorBuilders.buildAll(elem)
+          locatorBuilders.detach()
+          console.log(percy_css_string)
+          browser.runtime.sendMessage({
+            command: 'percyHide',
+            target: target,
+            value: percy_css_string,
+            insertBeforeLastCommand: insertBeforeLastCommand,
+            frameLocation:
+              actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
+            commandSideexTabId: contentSideexTabId,
+          })
           window.insidePercyCSS= false
           targetSelector = null
         },

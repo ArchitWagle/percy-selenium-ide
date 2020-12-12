@@ -542,6 +542,16 @@ export const Commands = [
     },
   ],
   [
+    'percyHide',
+    {
+      name: 'percyHide',
+      type: TargetTypes.LOCATOR,
+      description: `Percy Hide command`,
+      target: ArgTypes.locator,
+      value: ArgTypes.text,
+    },
+  ],
+  [
     'removeSelection',
     {
       name: 'remove selection',

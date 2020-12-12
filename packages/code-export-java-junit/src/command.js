@@ -72,6 +72,7 @@ export const emitters = {
   pause: emitPause,
   percySnapshot: emitPercySnapshot,
   percyCSS: emitPercyCSS,
+  percyHide: emitPercyHide,
   removeSelection: emitSelect,
   repeatIf: emitControlFlowRepeatIf,
   run: emitRun,
@@ -519,6 +520,13 @@ async function emitPercyCSS(locator) {
   const commands = [
     { level: 0, statement: `percy_css_string += "${locator}".substring(4);` },
     { level: 0, statement: `percy_css_string += "{ display: none; }";` },
+  ]
+  return Promise.resolve({ commands })
+}
+
+async function emitPercyHide(locator, target) {
+  const commands = [
+    { level: 0, statement: `percy_css_string += "${target}";` },
   ]
   return Promise.resolve({ commands })
 }

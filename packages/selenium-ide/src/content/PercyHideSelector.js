@@ -16,7 +16,7 @@
 // under the License.
 
 // Modified in tools.js from selenium-IDE
-
+import finder from '@medv/finder'
 
 class PercyHideSelector {
   constructor(callback, cleanupCallback) {
@@ -35,9 +35,12 @@ class PercyHideSelector {
     this.div = div
     this.e = null
     this.r = null
+    this.tempElem = []
+
 
     this.selecting = false
     this.styleSheet = doc.createElement("style")
+    this.styleSheet1 = doc.createElement("style")
     this.showAllElements(doc)
 
     this.createCanvas()
@@ -77,7 +80,9 @@ class PercyHideSelector {
       )
     }, 300)
     this.banner.appendChild(header)
+
     doc.body.insertBefore(this.banner, div)
+
     doc.addEventListener('mousemove', this, true)
     doc.addEventListener('keydown', this, true)
     doc.addEventListener('keyup', this, true)
@@ -87,6 +92,7 @@ class PercyHideSelector {
   cleanup() {
     this.rect.remove()
     this.styleSheet.remove()
+
     this.canvas.remove()
     try {
       if (this.div) {
@@ -122,8 +128,8 @@ class PercyHideSelector {
     const canvasrealleft = this.boundaryLeft-this.canvas.getBoundingClientRect().left
     const canvasrealtop = this.boundaryTop-this.canvas.getBoundingClientRect().top
     this.canvas.getContext('2d').rect(canvasrealleft, canvasrealtop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop)
-    console.log([canvasrealleft, canvasrealtop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop])
-    console.log([this.boundaryLeft, this.boundaryTop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop])
+    //console.log([canvasrealleft, canvasrealtop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop])
+    //console.log([this.boundaryLeft, this.boundaryTop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop])
     this.canvas.getContext('2d').globalAlpha = 0.4
     this.canvas.getContext('2d').fillStyle = 'red'
     this.canvas.getContext('2d').fill()
@@ -183,8 +189,6 @@ class PercyHideSelector {
             this.boundaryBottom= evt.clientY
             console.log(['client',evt.clientX,evt.clientY])
             this.drawRect()
-
-            console.log("madhav")
           } //Right click would cancel the select
 
           evt.preventDefault()
@@ -202,7 +206,6 @@ class PercyHideSelector {
             this.boundaryLeft = evt.clientX
             this.boundaryTop = evt.clientY
             console.log(['client',evt.clientX,evt.clientY])
-            console.log("rohit")
             console.log(this.rect)
             evt.preventDefault()
 
@@ -219,29 +222,76 @@ class PercyHideSelector {
       case 'keydown':
         // IF shift key is pressed return
         if(evt.keyCode === 16 || evt.charCode === 16){
-          console.log("shift")
-          const items = this.win.document.getElementsByTagName("*")
-          let elementsInBoundary = []
-          for (let i=0; i<items.length-1; i++){
-
-            let curr_elem = items[i].getBoundingClientRect()
-
-            if( curr_elem.left>this.boundaryLeft && curr_elem.right<this.boundaryRight
-              && curr_elem.bottom<this.boundaryBottom && curr_elem.top> this.boundaryTop){
-
-                elementsInBoundary.push(items[i])
-
-              }
-          }
+          /*
 
           console.log(elementsInBoundary)
           this.callback(elementsInBoundary, this.win)
           this.cleanup()
+          */
+
+          this.dfs(this.win.document.body)
+          this.callback(elementsInBoundary, this.win)
+          this.cleanup()
 
         }
+        else if (evt.keyCode === 84 || evt.charCode === 84) {
+
+          this.dfs(this.win.document.body)
+          this.styleSheet1.type = "text/css"
+          this.styleSheet1.innerText += this.percy_css_string
+          this.win.document.head.appendChild(this.styleSheet1)
+          console.log("best "+this.styleSheet1.innerText)
+
+        }
+        // press y
+        else if (evt.keyCode === 89 || evt.charCode === 89) {
+          this.styleSheet1.remove()
+        }
         break
+      case 'keyup':
+        break
+
+
     }
   }
+
+
+
+
+
+  dfs(elem){
+    let stack = []
+    stack.push(elem)
+    let count =0
+    this.percy_css_string = ""
+    while(stack.length!=0){
+      elem = stack.pop()
+      let curr_elem = elem.getBoundingClientRect()
+      if(
+        curr_elem.left>this.boundaryLeft &&
+        curr_elem.right<this.boundaryRight &&
+        curr_elem.bottom<this.boundaryBottom &&
+        curr_elem.top> this.boundaryTop &&
+        elem != this.banner ){
+
+          console.log("yessss "+elem.innerHTML)
+          this.percy_css_string += finder(elem) + ","
+          //elem.style.visibility='hidden'
+        }
+      else {
+          elem.childNodes.forEach(function(a) {
+            if(a.nodeType == 1){
+              stack.push(a)
+            }
+          })
+      }
+    }
+    this.percy_css_string= this.percy_css_string.replace(/,$/, '')
+    this.percy_css_string+="{ display: none !important; }"
+  }
+
+
+
 
   highlight(doc, x, y) {
     if (doc) {

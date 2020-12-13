@@ -666,7 +666,9 @@ Recorder.addEventHandler(
         let tmpValue = event.target.value
         record(m.cmd, tmpTarget, tmpValue)
       }
-      // percy code
+      // author: madhav wagle
+      // This code triggers the record function in record-api.js
+      // It handles PercySnapshot, PercyCSS and PercyHide
       else if (m.cmd.includes('Snapshot')) {
         let tmpTitle = goog.string.normalizeSpaces(
           event.target.ownerDocument.title
@@ -676,9 +678,11 @@ Recorder.addEventHandler(
         audio.play()
 
       }
+      // handles PercyCSS
       else if (m.cmd.includes('CSS')) {
         record(m.cmd, tmpTarget, '')
       }
+      // handles PercyHide
       else if (m.cmd.includes('percyHide')) {
         record(m.cmd, tmpTarget, '')
       }

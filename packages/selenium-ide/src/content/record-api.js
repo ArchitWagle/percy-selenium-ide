@@ -315,6 +315,9 @@ window.contentSideexTabId = contentSideexTabId
 window.Recorder = Recorder
 
 /* record */
+/*
+  Handles all the commands, send browser.runtime.sendMessage() to notify
+*/
 window.insidePercyCSS = false
 export function record(
   command,
@@ -323,7 +326,7 @@ export function record(
   insertBeforeLastCommand,
   actualFrameLocation
 ) {
-
+    // for percy css
     if (command=="percyCSS") {
       window.insidePercyCSS= true;
       targetSelector = new TargetSelector(

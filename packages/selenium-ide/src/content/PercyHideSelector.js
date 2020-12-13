@@ -18,6 +18,8 @@
 // Modified in tools.js from selenium-IDE
 import finder from '@medv/finder'
 
+
+// Handles all PercyHide related stuff
 class PercyHideSelector {
   constructor(callback, cleanupCallback) {
     this.callback = callback
@@ -39,11 +41,23 @@ class PercyHideSelector {
 
 
     this.selecting = false
+    // this.styleSheet is css to add a red dashed border to all the elements in
+    // the DOM so that it becomes easy to select elements to hidden
+    // This style is removed when user is done with using PercyHide
     this.styleSheet = doc.createElement("style")
+
+    // This stylesheet is toggled on by clicking `t` key and toggled off by
+    // clicking 'y' key. It basically contains the percyHide CSS
+    // so that user gets a fair idea of which elements have actually been hidden
     this.styleSheet1 = doc.createElement("style")
+
+    // function that puts a red border on all elements
     this.showAllElements(doc)
 
+    // create initial blank canvas
     this.createCanvas()
+
+    // banner contains the Percy Icon and stuff, not critical to functionality
     this.banner = doc.createElement('div')
     this.banner.setAttribute(
       'style',
@@ -83,12 +97,15 @@ class PercyHideSelector {
 
     doc.body.insertBefore(this.banner, div)
 
+    // Listners added to handle various events like user drawing rectangle, dragging,
+    // clicking shift key, etc.
     doc.addEventListener('mousemove', this, true)
     doc.addEventListener('keydown', this, true)
     doc.addEventListener('keyup', this, true)
     doc.addEventListener('click', this, true)
   }
 
+  // This code removes all css added during percyHide
   cleanup() {
     this.rect.remove()
     this.styleSheet.remove()
@@ -123,31 +140,25 @@ class PercyHideSelector {
     }
   }
 
+  // draws red rectangle according to user mouse movements
   drawRect(){
-
     const canvasrealleft = this.boundaryLeft-this.canvas.getBoundingClientRect().left
     const canvasrealtop = this.boundaryTop-this.canvas.getBoundingClientRect().top
     this.canvas.getContext('2d').rect(canvasrealleft, canvasrealtop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop)
-    //console.log([canvasrealleft, canvasrealtop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop])
-    //console.log([this.boundaryLeft, this.boundaryTop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop])
     this.canvas.getContext('2d').globalAlpha = 0.4
     this.canvas.getContext('2d').fillStyle = 'red'
     this.canvas.getContext('2d').fill()
     this.canvas.getContext('2d').globalAlpha = 1
     this.canvas.getContext('2d').shadowBlur = 10;
     this.canvas.getContext('2d').shadowColor = "red";
-
     this.canvas.getContext('2d').strokeStyle = "black";
-
     this.canvas.getContext('2d').strokeRect(canvasrealleft, canvasrealtop, this.boundaryRight -this.boundaryLeft, this.boundaryBottom-this.boundaryTop);
   }
 
+  // refreshes or creates the canvas
   createCanvas(){
     if(typeof this.canvas!='undefined')this.canvas.remove()
     this.canvas = this.win.document.createElement('canvas')
-    //this.canvas.style.width='100%'
-    //this.canvas.style.height='100%'
-    //this.canvas.style.display = 'block'
     this.canvas.width = window.innerWidth
     var body = document.body,
     html = document.documentElement;
@@ -166,6 +177,28 @@ class PercyHideSelector {
 
   }
 
+  // event Handlers
+  /*
+  A brief summary of all the events and what they do
+  mousemove:
+    If the user has aldready clicked a top left corner, then mousemove redraws a
+    rectangle from the top-left fixed point upto the current mouse location
+    (bottom-right), so that the rectangle changes as the mouse moves.
+  click:
+    when this.selecting = false, sets the top-left corner of rectangle
+    when this.selecting = true, sets the bottom-right corner of rectangle
+  shift key:
+    This submits the selected elements and returns. Equivalent to pressing enter
+    on a text box
+  t key:
+    toggles on the percyCSS in current window
+  y key:
+    toggles off the percyCSS in current window
+
+
+
+
+  */
   handleEvent(evt) {
     switch (evt.type) {
 
@@ -181,6 +214,7 @@ class PercyHideSelector {
         break
 
       case 'click':
+        // set bottom-right corner of rect
         if (this.selecting) {
           if (evt.button == 0 &&  this.callback) {
             this.selecting = false
@@ -196,6 +230,7 @@ class PercyHideSelector {
           this.selecting = false
 
         }
+        // set top-left corner of rect
         else {
           if (evt.button == 0 && this.callback) {
             this.selecting = true
@@ -214,26 +249,24 @@ class PercyHideSelector {
             evt.preventDefault()
             evt.stopPropagation()
             this.cleanup()
-            console.log("archit")
           }
         }
         break
 
       case 'keydown':
-        // IF shift key is pressed return
+        // If shift key is pressed return
         if(evt.keyCode === 16 || evt.charCode === 16){
           this.dfs(this.win.document.body)
           this.callback(this.percy_css_string, this.win.document.body)
           this.cleanup()
 
         }
+        // press t
         else if (evt.keyCode === 84 || evt.charCode === 84) {
-
           this.dfs(this.win.document.body)
           this.styleSheet1.type = "text/css"
           this.styleSheet1.innerText += this.percy_css_string
           this.win.document.head.appendChild(this.styleSheet1)
-          console.log("best "+this.styleSheet1.innerText)
 
         }
         // press y
@@ -241,19 +274,18 @@ class PercyHideSelector {
           this.styleSheet1.remove()
         }
         break
-      case 'keyup':
-        break
-
-
     }
   }
 
 
+/*
+  performs a DFS on the DOM and when it reaches an element X that lies completely within
+  the box drawn by the user, it adds the display:none css to X's locator and
+  dosen't explore X's children. (Has potential drawbacks but efficient)
+*/
   dfs(elem){
     let stack = []
     stack.push(elem)
-    let count =0
-    //this.percy_css_string = ""
     while(stack.length!=0){
       elem = stack.pop()
       let curr_elem = elem.getBoundingClientRect()
@@ -263,10 +295,7 @@ class PercyHideSelector {
         curr_elem.bottom<this.boundaryBottom &&
         curr_elem.top> this.boundaryTop &&
         elem != this.banner ){
-
-          //console.log("yessss "+elem.innerHTML)
           this.percy_css_string += finder(elem) + ","
-          //elem.style.visibility='hidden'
         }
       else {
           elem.childNodes.forEach(function(a) {

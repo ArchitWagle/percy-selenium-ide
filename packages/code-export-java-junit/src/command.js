@@ -510,7 +510,14 @@ async function emitPause(time) {
 
 async function emitPercySnapshot(locator, title) {
   const commands = [
-    { level: 0, statement: `percy.snapshot("${title}",null,null,false, percy_css_string);` },
+    { level: 0, statement: `count = title_index.containsKey("${title}") ? title_index.get("${title}") : 0;` },
+    { level: 0, statement: `title_index.put("${title}", count + 1);` },
+    { level: 0, statement: `if(count==0) {` },
+    { level: 1, statement: `percy.snapshot("${title}",null,null,false, percy_css_string);` },
+    { level: 0, statement: '}' },
+    { level: 0, statement: `else {` },
+    { level: 1, statement: `percy.snapshot("${title}"+"-"+count,null,null,false, percy_css_string);` },
+    { level: 0, statement: '}' },
     { level: 0, statement: `percy_css_string = "";` },
   ]
   return Promise.resolve({ commands })

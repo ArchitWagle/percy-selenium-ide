@@ -110,6 +110,7 @@ function beforeEach() {
         },
         { level: 1, statement: 'js = (JavascriptExecutor) driver;' },
         { level: 1, statement: 'vars = new HashMap<String, Object>();' },
+        { level: 1, statement: 'title_index = new HashMap<String, Integer>();' },
         { level: 1, statement: 'percy = new Percy(driver);' },
         { level: 1, statement: 'percy_css_string = "";' },
       ],
@@ -188,9 +189,16 @@ function declareVariables() {
         { level: 0, statement: 'private WebDriver driver;' },
         { level: 0, statement: 'private Percy percy;' },
         { level: 0, statement: 'private String percy_css_string;' },
+        { level: 0, statement: 'private int count;' },
         {
           level: 0,
           statement: 'private Map<String, Object> vars;',
+        },
+        {
+          level: 0,
+          // makes sure that even if multiple snapshots are taken on the same
+          // page a unique name is generated for each snapshot by adding an index
+          statement: 'private Map<String, Integer> title_index;',
         },
         { level: 0, statement: 'JavascriptExecutor js;' },
       ],
